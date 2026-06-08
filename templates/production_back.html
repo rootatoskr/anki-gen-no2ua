@@ -1,0 +1,77 @@
+<div class="word-chip">
+{{#audio_word}}
+<div class="audio-wrapper" onclick="playAudioFromWrapper(this); event.stopPropagation();">{{audio_word}}</div>
+{{/audio_word}}
+<span class="word-no">{{title}}</span>
+</div>
+
+<div class="lang-row">
+{{#audio}}
+<div class="audio-wrapper" onclick="playAudioFromWrapper(this); event.stopPropagation();">{{audio}}</div>
+{{/audio}}
+<div>
+{{#production}}
+<div style="display:flex;gap:6px;align-items:baseline">
+<span class="lang-label lang-ua">⮕</span>
+<div class="lang-text text-ua">{{production}}</div>
+</div>
+{{/production}}
+{{#recognition}}
+<div style="display:flex;gap:6px;align-items:baseline">
+<span class="lang-label lang-no">⬅</span>
+<div class="lang-text text-no">{{recognition}}</div>
+</div>
+{{/recognition}}
+</div>
+</div>
+
+<div class="divider"></div>
+
+<div class="examples">
+<div class="example-row" onclick="toggleEx(this)">
+<div class="ex-top">
+<div class="ex-audio audio-wrapper" onclick="playAudioFromWrapper(this); event.stopPropagation();">{{audio_1}}</div>
+<div class="ex-main">
+<div class="ex-nb">{{example_1}}</div>
+<div class="ex-ua">{{translation_1}}</div>
+</div>
+<span class="ex-chevron">
+<svg viewBox="0 0 24 24">
+<path d="M8 5l8 7-8 7z"/>
+</svg>
+</span>
+</div>
+</div>
+</div>
+
+<script>
+function playAudioFromWrapper(wrapper) {
+if (!wrapper) return;
+
+const audio = wrapper.querySelector('audio');
+if (audio) {
+audio.currentTime = 0;
+audio.play().catch(err => console.log("AnkiWeb audio error:", err));
+return;
+}
+
+const nativeBtn = wrapper.querySelector('.replay-button');
+if (nativeBtn) {
+nativeBtn.click();
+}
+}
+
+function toggleEx(row) {
+const uaBlock = row.querySelector('.ex-ua');
+const isOpening = !uaBlock.classList.contains('visible');
+
+uaBlock.classList.toggle('visible');
+row.querySelector('.ex-chevron').classList.toggle('open');
+
+if (isOpening) {
+const audioBtn = row.querySelector('.audio-wrapper');
+playAudioFromWrapper(audioBtn);
+}
+}
+</script>
+

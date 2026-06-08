@@ -1,0 +1,273 @@
+.card {
+  --bg: #fafaf8;
+  --text: #1a1a1a;
+  --text-muted: #6b6b66;
+  --text-strong-muted: #5F5E5A;
+  --blue-main: #185FA5;
+  --blue-light: #85B7EB;
+  --blue-bg: #E6F1FB;
+  --green-main: #2D7A3A;
+  --green-bg: #EEF7EE;
+  --divider-color: rgba(0, 0, 0, 0.1);
+  --chevron-color: #C4C2BA;
+  --hover-brightness: 0.95;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  padding: 28px;
+  text-align: left;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.nightMode .card,
+.night_mode .card {
+  --bg: #1c1c1a;
+  --text: #e0ddd5;
+  --text-muted: #9c9a92;
+  --text-strong-muted: #B4B2A9;
+  --blue-main: #85B7EB;
+  --blue-bg: #0C3A6B;
+  --green-main: #7EC887;
+  --green-bg: #1A3D1E;
+  --divider-color: rgba(255, 255, 255, 0.1);
+  --hover-brightness: 1.15;
+}
+
+.word-chip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 50px;
+}
+
+.word-no {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.front-wrap {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.front-sentence {
+  font-size: 30px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.front-sentence p {
+  margin: 0;
+}
+
+.front-sentence strong {
+  color: var(--blue-main);
+  font-weight: 600;
+}
+
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+}
+
+.lang-label {
+  font-size: 15px;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.lang-ua {
+  background: var(--blue-bg);
+  color: var(--blue-main);
+}
+
+.lang-no {
+  background: var(--green-bg);
+  color: var(--green-main);
+}
+
+.lang-text {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.lang-text p {
+  margin: 0;
+}
+
+.lang-text strong {
+  font-weight: 600;
+}
+
+.text-ua strong {
+  color: var(--blue-main);
+}
+
+.text-no {
+  color: var(--text-muted);
+}
+
+.text-no strong {
+  color: var(--text-strong-muted);
+}
+
+.text-no-main {
+  color: var(--text);
+}
+
+.text-no-main strong {
+  color: var(--blue-main);
+}
+
+.text-ua-muted {
+  color: var(--text-muted);
+}
+
+.text-ua-muted strong {
+  color: var(--text-strong-muted);
+}
+
+.divider {
+  height: 0.5px;
+  background: var(--divider-color);
+  margin: 16px 0;
+}
+
+.example-row {
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.ex-top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 52px;
+}
+
+.ex-audio {
+  flex-shrink: 0;
+}
+
+.ex-main {
+  flex: 1;
+}
+
+.ex-nb {
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--text);
+}
+
+.ex-nb strong {
+  color: var(--blue-main);
+  font-weight: 600;
+}
+
+.ex-ua {
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 4px 0 8px;
+  display: none;
+}
+
+.ex-ua.visible {
+  display: block;
+}
+
+.ex-ua strong {
+  color: var(--text-strong-muted);
+  font-weight: 500;
+}
+
+.ex-chevron {
+  flex-shrink: 0;
+  align-self: center;
+  transition: transform 0.2s;
+}
+
+.ex-chevron.open {
+  transform: rotate(90deg);
+}
+
+.ex-chevron svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--chevron-color);
+}
+
+.audio-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--blue-bg);
+  flex-shrink: 0;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.audio-wrapper::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid var(--blue-main);
+  margin-left: 2px;
+}
+
+.audio-wrapper audio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  z-index: 2;
+  pointer-events: none !important;
+}
+
+.audio-wrapper .replay-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  z-index: 3;
+}
+
+.audio-wrapper .replay-button svg,
+.audio-wrapper .replay-button .unhiglighted {
+  display: none !important;
+}
+
+.audio-wrapper font,
+.audio-wrapper span {
+  display: none !important;
+}
+
+.audio-wrapper:hover {
+  filter: brightness(var(--hover-brightness));
+}
