@@ -1,0 +1,10 @@
+[project]
+name = "anki-gen-no2ua"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "edge-tts>=7.2.8",
+    "genanki>=0.13.1",
+]

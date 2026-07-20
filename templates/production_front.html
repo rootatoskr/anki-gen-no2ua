@@ -1,3 +1,18 @@
 <div class="front-wrap">
 <div class="front-sentence">{{production}}</div>
 </div>
+
+<div class="translate-check">
+<input type="text" id="translate-input-front" class="translate-input" placeholder="" onkeydown="if(event.key==='Enter'){event.preventDefault(); this.blur(); sessionStorage.setItem('translateAnswerMain', this.value); pycmd('ans');}">
+</div>
+
+<script>
+(function() {
+  const input = document.getElementById('translate-input-front');
+  if (input) {
+    setTimeout(function() {
+      input.focus();
+    }, 50);
+  }
+})();
+</script>

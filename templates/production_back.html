@@ -25,10 +25,12 @@
 </div>
 </div>
 
+<div class="translate-answer-block" id="translate-answer-block"></div>
+
 <div class="divider"></div>
 
 <div class="examples">
-<div class="example-row" onclick="toggleEx(this)">
+<div class="example-row" id="example-row-1" onclick="toggleEx(this)">
 <div class="ex-top">
 <div class="ex-audio audio-wrapper" onclick="playAudioFromWrapper(this); event.stopPropagation();">{{audio_1}}</div>
 <div class="ex-main">
@@ -44,34 +46,149 @@
 </div>
 </div>
 
+<div class="translate-check">
+<input type="text" class="translate-input" placeholder="" onclick="event.stopPropagation();" onkeydown="if(event.key==='Enter'){event.preventDefault(); this.blur(); toggleEx(document.getElementById('example-row-1'));}">
+</div>
+
+{{#note}}
+<div class="note-footer">
+<div class="divider"></div>
+<div class="note-toggle-row">
+  <div class="note-toggle-btn" id="note-btn" onclick="toggleNote()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
+  </div>
+</div>
+<div class="note-content" id="anki-note-content">
+  {{note}}
+</div>
+</div>
+{{/note}}
+
 <script>
 function playAudioFromWrapper(wrapper) {
-if (!wrapper) return;
+  if (!wrapper) return;
 
-const audio = wrapper.querySelector('audio');
-if (audio) {
-audio.currentTime = 0;
-audio.play().catch(err => console.log("AnkiWeb audio error:", err));
-return;
-}
+  const audio = wrapper.querySelector('audio');
+  if (audio) {
+    audio.currentTime = 0;
+    audio.play().catch(err => console.log("AnkiWeb audio error:", err));
+    return;
+  }
 
-const nativeBtn = wrapper.querySelector('.replay-button');
-if (nativeBtn) {
-nativeBtn.click();
-}
+  const nativeBtn = wrapper.querySelector('.replay-button');
+  if (nativeBtn) {
+    nativeBtn.click();
+  }
 }
 
 function toggleEx(row) {
-const uaBlock = row.querySelector('.ex-ua');
-const isOpening = !uaBlock.classList.contains('visible');
+  if (!row) return;
+  const uaBlock = row.querySelector('.ex-ua');
+  if (!uaBlock) return;
 
-uaBlock.classList.toggle('visible');
-row.querySelector('.ex-chevron').classList.toggle('open');
+  const isOpening = !uaBlock.classList.contains('visible');
 
-if (isOpening) {
-const audioBtn = row.querySelector('.audio-wrapper');
-playAudioFromWrapper(audioBtn);
+  if (isOpening) {
+    uaBlock.classList.add('visible');
+    const chevron = row.querySelector('.ex-chevron');
+    if (chevron) {
+      chevron.classList.add('open');
+    }
+  }
+
+  const audioBtn = row.querySelector('.audio-wrapper');
+  playAudioFromWrapper(audioBtn);
 }
+
+function toggleNote() {
+  const noteContent = document.getElementById('anki-note-content');
+  const noteBtn = document.getElementById('note-btn');
+  if (!noteContent || !noteBtn) return;
+
+  const isOpening = !noteContent.classList.contains('visible');
+
+  if (isOpening) {
+    noteContent.classList.add('visible');
+    noteBtn.classList.add('open');
+  } else {
+    noteContent.classList.remove('visible');
+    noteBtn.classList.remove('open');
+  }
 }
+
+window.addEventListener('keydown', function(event) {
+  if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+    return;
+  }
+
+  const key = event.key.toLowerCase();
+
+  if (key === 'q' || key === 'й') {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    toggleNote();
+  }
+
+  if (key === 'я' || key === 'z') {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const rows = document.querySelectorAll('.example-row');
+    rows.forEach(row => {
+      toggleEx(row);
+    });
+  }
+
+  if (key === 'x' || key === 'ч') {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const mainAudioBtn = document.querySelector('.lang-row .audio-wrapper');
+    if (mainAudioBtn) {
+      playAudioFromWrapper(mainAudioBtn);
+    }
+  }
+
+  if (key === 'ё' || key === '<' || key === '`') {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    const mainAudioBtn = document.querySelector('.word-chip .audio-wrapper');
+    if (mainAudioBtn) {
+      playAudioFromWrapper(mainAudioBtn);
+    }
+  }
+
+if (key === 'ц' || key === 'w') {
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  const input = document.querySelector('.translate-check .translate-input');
+  if (input) {
+    input.focus();
+  }
+}
+
+}, true);
+
+(function() {
+  const mainAudioBtn = document.querySelector('.lang-row .audio-wrapper');
+  if (mainAudioBtn) {
+    setTimeout(() => {
+      playAudioFromWrapper(mainAudioBtn);
+    }, 100);
+  }
+})();
+
+(function() {
+  var val = sessionStorage.getItem('translateAnswerMain') || '';
+  var block = document.getElementById('translate-answer-block');
+  if (block && val.trim() !== '') {
+    block.innerHTML = '<span class="translate-answer-label"></span> ' + val;
+    block.classList.add('visible');
+  }
+  sessionStorage.removeItem('translateAnswerMain');
+})();
 </script>
-

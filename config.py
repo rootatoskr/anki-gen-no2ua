@@ -1,9 +1,9 @@
 import re
 
-INPUT_FILE = 'cards.txt'
+INPUT_FILE = "cards.txt"
 
-TTS_VOICE = 'nb-NO-FinnNeural'
-TTS_RATE = '-20%'
+TTS_VOICE = "nb-NO-FinnNeural"
+TTS_RATE = "-30%"
 
 MODEL_ID = 5207392320
 DECK_ID = 5029400111
@@ -20,6 +20,7 @@ FIELDS = [
     "audio",
     "audio_word",
     "audio_1",
+    "note",
 ]
 
 EXPECTED_KEYS = [
